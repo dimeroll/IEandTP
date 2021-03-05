@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Lab1_ICtaTP.Ticket>
+
+@{
+    ViewData["Title"] = "Квитки на рейс";
+}
+
+<h1>Квитки на рейс @ViewBag.JourneyId </h1>
+
+<p>
+    @Html.ActionLink("Додати новий квиток", "CreateForJourneys", new { journeyId = @ViewBag.JourneyId })
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Place)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Passenger)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Place)
+                </td>
+                <td>
+                    Відправлення
+                    @Html.DisplayFor(modelItem => item.Journey.DeparturePoint.DeparturePointName)
+                    @Html.DisplayFor(modelItem => item.Journey.DepartureTime)
+                    Прибуття
+                    @Html.DisplayFor(modelItem => item.Journey.Destination.DestinationName)
+                    @Html.DisplayFor(modelItem => item.Journey.ArrivalTime)
+                    Потяг
+                    @Html.DisplayFor(modelItem => item.Journey.Train.AdditionalInfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Passenger.Surname)
+                    @Html.DisplayFor(modelItem => item.Passenger.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TicketId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

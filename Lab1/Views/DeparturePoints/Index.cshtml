@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Lab1_ICtaTP.DeparturePoint>
+
+@{
+    ViewData["Title"] = "Пункти відправлення";
+}
+
+<h1>Пункти відправлення</h1>
+
+<p>
+    <a asp-action="Create">Додати новий пункт відправлення</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DeparturePointName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeparturePointName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DeparturePointId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.DeparturePointId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.DeparturePointId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

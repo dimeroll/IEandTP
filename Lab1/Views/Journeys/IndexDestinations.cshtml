@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Lab1_ICtaTP.Journey>
+
+@{
+    ViewData["Title"] = "Рейси за пунктом призначення";
+}
+
+<h1>Рейси за пунктом призначення @ViewBag.DestinationName</h1>
+
+<p></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeparturePoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Train)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartureTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeparturePoint.DeparturePointName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Destination.DestinationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Train.AdditionalInfo)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.JourneyId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.JourneyId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.JourneyId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
