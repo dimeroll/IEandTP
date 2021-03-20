@@ -19,17 +19,47 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrainTypeName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TrainTypeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TrainTypeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TrainTypeId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrainTypeName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TrainTypeId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.TrainTypeId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TrainTypeId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+<div class="container">
+    <div id="chart2"></div>
+</div>
+@section scripts{
+    <script type "text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            $.get('/api/Charts/JsonData1', function(JsonData1) {
+                data = google.visualization.arrayToDataTable(JsonData1, false);
+                var option = {
+                    title: "Співвідношення кількості потягів за їх типами",
+                    width: 800,
+                    height: 400
+                };
+                chart = new google.visualization.ColumnChart(document.getElementById('chart2'));
+                chart.draw(data, option);
+            })
+        }
+    </script>
+}
+
+
+
