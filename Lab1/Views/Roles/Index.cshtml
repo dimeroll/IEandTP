@@ -9,6 +9,27 @@
 <p>
     <a asp-action="Create">Додати нову роль</a>
 </p>
+
+<div>
+    <h3>Оберіть excel-файл для заватаження</h3>
+    @using (Html.BeginForm("Import", "Roles", FormMethod.Post, new { enctype = "multipart/form-data", id = "frm-excel" }))
+    {
+        <div>
+            Завантажте Excel-файл:
+            <input type="file" name="fileExcel" id="fileExcel" />
+            <div>
+                <input type="submit" value="Завантажити" />
+            </div>
+        </div>
+    }
+</div>
+
+<div>
+    <h3>Завантаження інформації в файл</h3>
+    <a asp-action="Export">Завантажити</a>
+</div>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -26,9 +47,9 @@
                     @Html.DisplayFor(modelItem => item.RoleName)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.RoleId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.RoleId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.RoleId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.RoleId">Редагувати</a> |
+                    <a asp-action="Details" asp-route-id="@item.RoleId">Працівники</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RoleId">Видалити</a>
                 </td>
             </tr>
         }
@@ -41,12 +62,12 @@
 @section scripts{
     <script type "text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
 
-            $.get('/api/Charts/JsonData', function(JsonData) {
+            $.get('/api/Charts/JsonData', function (JsonData) {
                 data = google.visualization.arrayToDataTable(JsonData, false);
                 var option = {
                     title: "Співвідношення кількості працівників за ролями",
